@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Películas</title>
+</head>
+<body>
+    <h1>Lista de Películas</h1>
+    <ul>
+        {% for pelicula in peliculas %}
+            <li>
+                <strong>Nombre:</strong> {{ pelicula.nombre }}<br>
+                <strong>Género:</strong> {{ pelicula.genero }}<br>
+                <strong>Director:</strong> {{ pelicula.director }}<br>
+            </li>
+        {% empty %}
+            <li>No hay películas registradas.</li>
+        {% endfor %}
+    </ul>
+    <br>
+    <a href="{% url 'agregar_pelicula' %}">Agregar una nueva película</a>
+</body>
+</html>
