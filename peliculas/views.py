@@ -1,14 +1,22 @@
-from django.shortcuts import render
+
 from django.shortcuts import render, redirect
 from .forms import PeliculaForm
 from .models import Pelicula
 
-from django.shortcuts import render
 
 def agregar_pelicula(request):
     
-    return render(request, 'peliculas/agregar_pelicula.html', {})
-
-def lista_peliculas(request):
+    if request.method == 'POST':
+        form = PeliculaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_peliculas')  
+    else:
+        
+        form = PeliculaForm()
     
-    return render(request, 'peliculas/lista_peliculas.html', {})
+    return render(request, 'peliculas/agregar_pelicula.html', {'form': form})
+    
+def lista_peliculas(request):
+    peliculas = Pelicula.objects.all() 
+    return render(request, 'peliculas/lista_peliculas.html', {'peliculas': peliculas})
